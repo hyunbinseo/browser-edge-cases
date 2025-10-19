@@ -1,0 +1,28 @@
+<!doctype html>
+
+<html lang="en">
+	<!-- Affected: https://hyunb.in/crop-image-twitter -->
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	</head>
+	<body>
+		<p>
+			When clipboard is accessed asynchronously, the <code>item.type</code> is
+			incorrect.
+		</p>
+		<dl>
+			<dt>Expected</dt>
+			<dd>"image/jpeg"</dd>
+			<dt>Actual</dt>
+			<dd>"application/x-moz-file"</dd>
+			<dt>Environment</dt>
+			<dd>Firefox Windows 144.0</dd>
+		</dl>
+		<script>
+			window.addEventListener("paste", async (e) => {
+				for await (const item of e.clipboardData?.items) console.log(item);
+			});
+		</script>
+	</body>
+</html>
