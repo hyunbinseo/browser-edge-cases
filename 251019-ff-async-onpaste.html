@@ -12,16 +12,23 @@
 			incorrect.
 		</p>
 		<dl>
+			<dt>Guide</dt>
+			<dd>Copy image file(s) and paste to the window.</dd>
 			<dt>Expected</dt>
 			<dd>"image/jpeg"</dd>
 			<dt>Actual</dt>
 			<dd>"application/x-moz-file"</dd>
-			<dt>Environment</dt>
+			<dt>Tested on</dt>
 			<dd>Firefox Windows 144.0</dd>
 		</dl>
+		<pre></pre>
 		<script>
 			window.addEventListener("paste", async (e) => {
-				for await (const item of e.clipboardData?.items) console.log(item);
+				for await (const item of e.clipboardData?.items) {
+					console.log(item);
+					document.querySelector("pre").textContent +=
+						`\n${Date.now()} ${item.type}`;
+				}
 			});
 		</script>
 	</body>
